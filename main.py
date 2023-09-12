@@ -3,15 +3,16 @@ import json
 import streamlit as st
 import numpy as np
 
-st.title('Banglore House Price Prediction')
-location = str(st.text_input('Location'))
-total_sqr_ft = st.text_input('Total Area (in square foot)')
-bhk = st.text_input('No. of Bedrooms')
-bath = st.text_input('No. of Bathrooms')
-
 model = pickle.load(open('banglore_home_prices_model.pickle', 'rb'))
 columns = json.load(open('columns.json', 'r'))['data_columns']
 
+st.title('Banglore House Price Prediction')
+location = st.selectbox(
+    'Select a location in Banglore',
+    tuple(columns[3:]))
+total_sqr_ft = st.text_input('Total Area (in square foot)')
+bhk = st.text_input('No. of Bedrooms')
+bath = st.text_input('No. of Bathrooms')
 
 def get_estimated_price(region, sqft, bath, bhk):
     try:
